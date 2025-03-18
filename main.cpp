@@ -151,11 +151,24 @@ void evaluate(const std::string& string, const std::vector<std::string>& subs)
         std::cout << "\t" << variable << "=" << value << "\n";
     }
 
-    Math::Expression result {expression.calculate(variables, values)};
+    try
+    {
+        Math::Expression result {expression.calculate(variables, values)};
 
-    std::cout << "-----------------------------------------------\n";
-    std::cout << "Calculated value:\n"
-                 "\t" << result << "\n";
+        std::cout << "-----------------------------------------------\n";
+        std::cout << "Calculated value:\n"
+                     "\t" << result << "\n";
+    }
+    catch(const std::invalid_argument& error)
+    {
+        std::cerr << "Evaluating error \"" << error.what() << "\"\n";
+        exit(EXIT_FAILURE);
+    }
+    catch(...)
+    {
+        std::cerr << "Evaluating error\n";
+        exit(EXIT_FAILURE);
+    }
 }
 
 
