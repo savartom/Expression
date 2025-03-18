@@ -73,7 +73,14 @@ namespace Math
     template<typename Type>
     Type Power<Type>::calculate(const std::vector<std::string>& variable, const std::vector<Type>& value)
     {
-        return std::pow(this->left->calculate(variable, value), this->right->calculate(variable, value));
+        try
+        {
+            return std::pow(this->left->calculate(variable, value), this->right->calculate(variable, value));
+        }
+        catch(...)
+        {
+            throw std::invalid_argument("Error calculating power");
+        }
     }
 
 
