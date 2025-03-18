@@ -73,7 +73,12 @@ namespace Math
     template<typename Type>
     Type Division<Type>::calculate(const std::vector<std::string>& variable, const std::vector<Type>& value)
     {
-        return this->left->calculate(variable, value) / this->right->calculate(variable, value);
+        Type denominator = this->right->calculate(variable, value);
+        if(denominator == Type{})
+        {
+            throw std::invalid_argument("Division by zero");
+        }
+        return this->left->calculate(variable, value) / denominator;
     }
 
 
