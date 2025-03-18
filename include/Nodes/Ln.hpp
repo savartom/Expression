@@ -73,7 +73,12 @@ namespace Math
     template<typename Type>
     Type Ln<Type>::calculate(const std::vector<std::string>& variable, const std::vector<Type>& value)
     {
-        return std::log(this->argument->calculate(variable, value));
+        Type result = this->argument->calculate(variable, value);
+        if(result == Type{})
+        {
+            throw std::invalid_argument("Logarithm from zero");
+        }
+        return std::log(result);
     }
 
 
